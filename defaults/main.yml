@@ -1,0 +1,25 @@
+---
+# ---------------------------------------------------------------------------
+# By default we'll create the users, unless we specifically ask the users to
+# be deleted.
+delete_users: no
+
+# ---------------------------------------------------------------------------
+# Install sudoers.d file for users
+sudo_access: no
+
+# ---------------------------------------------------------------------------
+users_homeco:
+  - name: user1
+    comment: "User One"
+    password: '!'
+
+  - name: user2
+    comment: "User Two"
+    password: '$6$3mNHVelzKm0Jk5IRfDTgqMJDvkDwYbH.bxvcqIfHUC4b/wuPMIvVxdt.'
+
+  - name: user2
+    comment: "User Three"
+    password: '!'
+
+# ---------------------------------------------------------------------------

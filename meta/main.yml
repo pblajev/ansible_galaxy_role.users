@@ -1,0 +1,10 @@
+galaxy_info:
+  author: Peter Blajev
+  description: Galaxy role ansible_galaxy_role.users
+  company: "Homeco"
+
+  license: license (GPL-2.0-or-later, MIT)
+
+  min_ansible_version: 2.1
+  galaxy_tags: []
+dependencies: []
