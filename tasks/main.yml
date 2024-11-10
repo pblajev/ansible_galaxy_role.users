@@ -1,0 +1,47 @@
+---
+- name: Create users
+  block:
+    - name: useradd <users>
+      user:
+        name: "{{ item.name }}"
+        comment: "{{ item.comment }}"
+        password: "{{ item.password }}"
+        update_password: on_create
+        shell: /bin/bash
+        state: present
+      with_items: "{{ users_list }}"
+
+    - name: Add SSH Keys
+      authorized_key:
+        user: "{{ item.name }}"
+        key: "{{ lookup('file', '../sshkeys/' + item.name + '.keys') }}"
+      with_items: "{{ users_list }}"
+      when: not ansible_check_mode
+
+    - name: Enable sudo access
+      template:
+        src: 'etc-sudoers.d-user_template.j2'
+        dest: "{{ '/etc/sudoers.d/' + '20-' + item.name }}"
+        owner: root
+        group: root
+        mode: 0440
+        validate: visudo -cf %s
+      with_items: "{{ users_list }}"
+      when: sudo_access | bool
+  when: not delete_users | bool
+
+- name: Delete users
+  block:
+    - name: userdel <users>
+      user:
+        name: "{{ item.name }}"
+        remove: 'yes'
+        state: absent
+      with_items: "{{ users_list }}"
+
+    - name: Remove sudo access
+      file:
+        path: "{{ '/etc/sudoers.d/' + '20-' + item.name }}"
+        state: absent
+      with_items: "{{ users_list }}"
+  when: delete_users | bool
