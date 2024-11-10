@@ -18,7 +18,7 @@ users_homeco:
     comment: "User Two"
     password: '$6$3mNHVelzKm0Jk5IRfDTgqMJDvkDwYbH.bxvcqIfHUC4b/wuPMIvVxdt.'
 
-  - name: user2
+  - name: user3
     comment: "User Three"
     password: '!'
 
